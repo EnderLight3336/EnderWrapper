@@ -1,0 +1,8 @@
+{
+    "class-path" : [],
+    "module-path" : [],
+    "extra-args" : [],
+    "jar" : null,
+    "main-class" : null,
+    "help" : "This can be removed. Key $jar and $main-class only need one exits, ignore $main-class if $jar not null"
+}
