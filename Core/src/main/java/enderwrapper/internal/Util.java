@@ -1,4 +1,4 @@
-package internal;
+package enderwrapper.internal;
 
 import com.alibaba.fastjson2.JSONObject;
 

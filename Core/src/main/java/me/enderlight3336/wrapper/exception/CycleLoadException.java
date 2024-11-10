@@ -1,6 +1,6 @@
 package me.enderlight3336.wrapper.exception;
 
-import internal.extension.UnresolvedExt;
+import enderwrapper.internal.extension.UnresolvedExt;
 
 public class CycleLoadException extends ExtensionLoadException {
     public CycleLoadException(UnresolvedExt ext) {
@@ -9,9 +9,9 @@ public class CycleLoadException extends ExtensionLoadException {
 
     @Override
     public String getMessage() {
-        StringBuilder sb = new StringBuilder("Cycle:[").append(ext.name).append(" -> ");
-        list.forEach(ext1 -> sb.append(ext1.name).append(" -> "));
+        StringBuilder sb = new StringBuilder("Cycle:[").append(causeExt.name).append(" -> ");
+        influenceList.forEach(ext1 -> sb.append(ext1.name).append(" -> "));
         int length = sb.length();
-        return sb.delete(length - 5, length - 1).append(ext.name).append("]").toString();
+        return sb.delete(length - 5, length - 1).append(causeExt.name).append("]").toString();
     }
 }

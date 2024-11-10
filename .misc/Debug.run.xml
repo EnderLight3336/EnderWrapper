@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Debug" type="JarApplication">
-    <option name="JAR_PATH" value="$PROJECT_DIR$/.run/Bootstrap-1.0-SNAPSHOT.jar" />
-    <option name="VM_PARAMETERS" value="-javaagent:$PROJECT_DIR$/.run/WrapperBootstrap.jar=debug -p $Classpath$ --add-modules EnderWrapper" />
+    <option name="JAR_PATH" value="$PROJECT_DIR$/.run/TestMain.jar" />
+    <option name="VM_PARAMETERS" value="-javaagent:$PROJECT_DIR$/.run/WrapperBootstrap.jar=debug -p $Classpath$" />
     <option name="WORKING_DIRECTORY" value="$FileDir$" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <method v="2">

@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>Core</artifactId>
+    <artifactId>TestMain</artifactId>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -17,42 +17,25 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>24.0.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>it.unimi.dsi</groupId>
-            <artifactId>fastutil</artifactId>
-            <version>8.5.12</version>
-        </dependency>
-        <dependency>
-            <groupId>org.ow2.asm</groupId>
-            <artifactId>asm</artifactId>
-            <version>9.7</version>
-        </dependency>
-    </dependencies>
-
     <build>
-        <finalName>Core</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
+                <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
-                    <compilerArgs>
-                        <arg>--add-exports</arg>
-                        <arg>java.base/jdk.internal.module=me.enderlight3336.wrapper</arg>
-                        <arg>--add-exports</arg>
-                        <arg>java.base/jdk.internal.loader=me.enderlight3336.wrapper</arg>
-                        <arg>--add-exports</arg>
-                        <arg>java.base/jdk.internal.reflect=me.enderlight3336.wrapper</arg>
-                    </compilerArgs>
+                    <finalName>TestMain</finalName>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Main-Class>me.enderlight3336.Bootstrap</Main-Class>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -62,8 +45,8 @@
                         <phase>package</phase>
                         <configuration>
                             <target>
-                                <copy file="target/Core.jar"
-                                      todir="../.run/module"
+                                <copy file="target/TestMain.jar"
+                                      todir="../.run"
                                       overwrite="true"/>
                             </target>
                         </configuration>
@@ -75,4 +58,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

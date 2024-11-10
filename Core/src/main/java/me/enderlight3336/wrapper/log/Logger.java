@@ -1,7 +1,7 @@
 package me.enderlight3336.wrapper.log;
 
-import internal.console.Console;
-import internal.log.LogUtil;
+import enderwrapper.internal.console.Console;
+import enderwrapper.internal.log.LogUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
@@ -44,7 +44,7 @@ public final class Logger {
             writer.println(str);
         }
     }
-    public void catchThrow(@NotNull Throwable throwable, @NotNull Level level, String msg) {
+    public void logThrow(@NotNull Throwable throwable, @NotNull Level level, String msg) {
         String build = "["+ LocalTime.now() +"] ["+name +"/"+level.name()+"] " + msg;
         synchronized (writer) {
             writer.println(build);
@@ -52,8 +52,8 @@ public final class Logger {
         }
     }
     static final String s0 = "Catch a throw!";
-    public void catchThrow(Throwable throwable, Level level) {
-        catchThrow(throwable, level, s0);
+    public void logThrow(Throwable throwable, Level level) {
+        logThrow(throwable, level, s0);
     }
     public void debug(String str) {
         log(Level.DEBUG, str);

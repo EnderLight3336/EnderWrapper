@@ -1,7 +1,7 @@
 package me.enderlight3336.wrapper.extension;
 
-import internal.extension.UnresolvedExt;
-import internal.loader.ExtLoader;
+import enderwrapper.internal.extension.UnresolvedExt;
+import enderwrapper.internal.loader.ExtLoader;
 import me.enderlight3336.wrapper.log.Logger;
 
 import java.lang.reflect.AccessibleObject;

@@ -1,9 +1,9 @@
-package internal;
+package enderwrapper.internal;
 
 import com.alibaba.fastjson2.JSONArray;
-import internal.extension.UnresolvedExt;
-import internal.loader.ExtLoader;
-import internal.log.LogUtil;
+import enderwrapper.internal.extension.UnresolvedExt;
+import enderwrapper.internal.loader.ExtLoader;
+import enderwrapper.internal.log.LogUtil;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ReferenceArrayList;
 import me.enderlight3336.wrapper.extension.Extension;
@@ -11,14 +11,14 @@ import me.enderlight3336.wrapper.log.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class ExtensionManager {
     public static Object2ObjectOpenHashMap<String, Extension> extensionMap = new Object2ObjectOpenHashMap<>();
-    public static void resolve(@NotNull File path, JSONArray extList) {
+    public static void resolve(@NotNull File path, JSONArray extList) throws MalformedURLException, IllegalAccessException {
         //Read all extension files
         File[] jars;
         if (!path.exists()) {
@@ -55,18 +55,18 @@ public class ExtensionManager {
             try {
                 unresolvedExts.add(new UnresolvedExt(file));
             } catch (Exception e) {
-                LogUtil.MAIN.catchThrow(e, Logger.Level.ERROR, "Error occurred while try to read JAR " + file.getPath());
+                LogUtil.MAIN.logThrow(e, Logger.Level.ERROR, "Error occurred while try to read JAR " + file.getPath());
             }
         }
         unresolvedExts.forEach(unresolvedExt -> unresolvedExt.build(unresolvedExts));
+        ExtLoader.init(unresolvedExts);
         while (!unresolvedExts.isEmpty()) {
             UnresolvedExt unresolvedExt = unresolvedExts.get(0);
             try {
                 unresolvedExt.resolve(unresolvedExts);
             } catch (Exception ex) {
-                LogUtil.MAIN.catchThrow(ex, Logger.Level.ERROR, "Error occurred while try to resolve EXTENSION " + unresolvedExt.name);
+                LogUtil.MAIN.logThrow(ex, Logger.Level.ERROR, "Error occurred while try to resolve EXTENSION " + unresolvedExt.name);
             }
         }
-        ExtLoader.buildFindTree();
     }
 }

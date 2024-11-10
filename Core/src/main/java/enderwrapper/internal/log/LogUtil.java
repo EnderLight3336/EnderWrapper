@@ -1,6 +1,6 @@
-package internal.log;
+package enderwrapper.internal.log;
 
-import internal.console.Console;
+import enderwrapper.internal.console.Console;
 import me.enderlight3336.wrapper.EnderWrapperMain;
 import me.enderlight3336.wrapper.log.Logger;
 import org.jetbrains.annotations.ApiStatus;
@@ -49,7 +49,7 @@ public final class LogUtil {
             try {
                 writer.write(b);
             } catch (IOException e) {
-                LogUtil.MAIN.catchThrow(e, Logger.Level.ERROR, "Error occurred while on logging");
+                LogUtil.MAIN.logThrow(e, Logger.Level.ERROR, "Error occurred while on logging");
             }
         }
     }

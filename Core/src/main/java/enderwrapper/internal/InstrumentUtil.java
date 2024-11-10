@@ -1,4 +1,4 @@
-package internal;
+package enderwrapper.internal;
 
 import it.unimi.dsi.fastutil.objects.Reference2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ReferenceArrayList;

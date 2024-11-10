@@ -1,9 +1,11 @@
 package me.enderlight3336.wrapper;
 
-import internal.InstrumentUtil;
+import jdk.internal.reflect.Reflection;
+import enderwrapper.internal.InstrumentUtil;
 
 import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.ClassFileTransformer;
+import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +13,12 @@ import java.util.Set;
 import java.util.jar.JarFile;
 
 @SuppressWarnings("unused")
-public final class Instrumentation implements java.lang.instrument.Instrumentation {
-    public static final Instrumentation instance = new Instrumentation();
-    public Instrumentation() {}
+public final class LimitedInstrumentation implements Instrumentation {
+    public static final LimitedInstrumentation instance = new LimitedInstrumentation();
+    public LimitedInstrumentation() {}
     @Override
     public void addTransformer(ClassFileTransformer transformer, boolean canRetransform) {
-
+        Class<?> caller = Reflection.getCallerClass();
     }
     @Override
     public void addTransformer(ClassFileTransformer transformer) {

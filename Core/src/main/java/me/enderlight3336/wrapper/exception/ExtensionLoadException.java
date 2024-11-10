@@ -1,34 +1,34 @@
 package me.enderlight3336.wrapper.exception;
 
-import internal.extension.UnresolvedExt;
+import enderwrapper.internal.extension.UnresolvedExt;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExtensionLoadException extends Exception {
-    public final UnresolvedExt ext;
-    public final List<UnresolvedExt> list = new ArrayList<>();
-    public ExtensionLoadException(UnresolvedExt ext, String s) {
+    public final UnresolvedExt causeExt;
+    public final List<UnresolvedExt> influenceList = new ArrayList<>();
+    public ExtensionLoadException(UnresolvedExt causeExt, String s) {
         super(s);
 
-        this.ext = ext;
+        this.causeExt = causeExt;
     }
 
-    public ExtensionLoadException(UnresolvedExt ext, String message, Throwable cause) {
+    public ExtensionLoadException(UnresolvedExt causeExt, String message, Throwable cause) {
         super(message, cause);
-        this.ext = ext;
+        this.causeExt = causeExt;
     }
 
-    public ExtensionLoadException(UnresolvedExt ext, Throwable cause) {
+    public ExtensionLoadException(UnresolvedExt causeExt, Throwable cause) {
         super(cause);
-        this.ext = ext;
+        this.causeExt = causeExt;
     }
 
     @Override
     public String getMessage() {
-        if (list.isEmpty()) {
-            return "cause=" + ext.name;
+        if (influenceList.isEmpty()) {
+            return "cause=" + causeExt.name;
         }
-        return "cause='" + ext.name + "' influence=" + list;
+        return "cause='" + causeExt.name + "' influence=" + influenceList;
     }
 }

@@ -1,8 +1,8 @@
-package internal.console;
+package enderwrapper.internal.console;
 
 import me.enderlight3336.wrapper.command.AbstractCommand;
 import me.enderlight3336.wrapper.command.CommandManager;
-import internal.log.LogUtil;
+import enderwrapper.internal.log.LogUtil;
 import me.enderlight3336.wrapper.log.Logger;
 
 import javax.swing.*;
@@ -91,7 +91,7 @@ public final class Console {
         try {
             commandMap.getOrDefault(string[0].toLowerCase(Locale.ROOT), command).execute(string);
         } catch (Exception e) {
-            LogUtil.MAIN.catchThrow(e, Logger.Level.WARN, "Error while execute command!");
+            LogUtil.MAIN.logThrow(e, Logger.Level.WARN, "Error while execute command!");
         }
     }
     public static void setLoaded() {
