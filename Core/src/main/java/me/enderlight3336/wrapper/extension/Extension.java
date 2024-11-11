@@ -4,6 +4,9 @@ import enderwrapper.internal.extension.UnresolvedExt;
 import enderwrapper.internal.loader.ExtLoader;
 import me.enderlight3336.wrapper.log.Logger;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
 import java.lang.reflect.AccessibleObject;
 
 public abstract class Extension {
@@ -13,9 +16,10 @@ public abstract class Extension {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
+        MethodHandle handle = MethodHandles.lookup().findConstructor(Extension.class, MethodType.methodType(Void.class, String.class, ExtLoader.class)); //todo:debug
     }
-    public final Logger logger;
-    public final String name;
+    protected final Logger logger;
+    protected final String name;
     protected final ExtLoader loader;
     private Extension(String name, ExtLoader loader) {
         this.name = name;

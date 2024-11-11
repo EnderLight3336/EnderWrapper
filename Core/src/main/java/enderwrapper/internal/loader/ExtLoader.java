@@ -56,7 +56,6 @@ import java.util.List;
 @SuppressWarnings("removal")
 public class ExtLoader extends URLClassLoader {
     static final ClassLoader PARENT = ExtLoader.class.getClassLoader();
-    public static final Reference2ObjectOpenHashMap<Extension, ExtLoader> extMap = new Reference2ObjectOpenHashMap<>();
     public static final Object2ObjectOpenHashMap<String, ExtLoader> nameMap = new Object2ObjectOpenHashMap<>();
     public static ExtLoader[] loaderBuffer = null;
     static Field f1, f2;
@@ -90,7 +89,6 @@ public class ExtLoader extends URLClassLoader {
     public static Extension loadExt(UnresolvedExt ext) throws ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         ExtLoader loader = nameMap.get(ext.name);
         Extension extension = (Extension) loader.findClass(ext.clazz).getDeclaredConstructors()[0].newInstance(ext.name, loader);
-        extMap.put(extension, loader);
         return extension;
     }
     public static void init(List<UnresolvedExt> list) throws MalformedURLException, IllegalAccessException {
