@@ -16,12 +16,11 @@ public abstract class Extension {
         } catch (NoSuchMethodException e) {
             throw new RuntimeException(e);
         }
-        MethodHandle handle = MethodHandles.lookup().findConstructor(Extension.class, MethodType.methodType(Void.class, String.class, ExtLoader.class)); //todo:debug
     }
     protected final Logger logger;
     protected final String name;
     protected final ExtLoader loader;
-    private Extension(String name, ExtLoader loader) {
+    Extension(String name, ExtLoader loader) {
         this.name = name;
         this.logger = new Logger(name);
         this.loader = loader;
