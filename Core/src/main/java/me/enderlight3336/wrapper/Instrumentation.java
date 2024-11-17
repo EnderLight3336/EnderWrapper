@@ -1,8 +1,10 @@
 package me.enderlight3336.wrapper;
 
+import com.alibaba.fastjson2.JSONObject;
 import jdk.internal.reflect.Reflection;
-import enderwrapper.internal.InstrumentUtil;
+import enderwrapper.internal.instrument.InstrumentUtil;
 import enderwrapper.internal.Util;
+import me.enderlight3336.wrapper.security.AccessController;
 
 import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.ClassFileTransformer;
@@ -14,19 +16,19 @@ import java.util.jar.JarFile;
 
 @SuppressWarnings("unused")
 public class Instrumentation implements java.lang.instrument.Instrumentation {
-    public static final Instrumentation instance = Util.config.getBooleanVaule("SecureInstrument") ? new SecureInstrumentation() : new Instrumentation();
+    public static final Instrumentation instance = Util.config.getBooleanValue("SecureInstrument") ? new SecureInstrumentation() : new Instrumentation();
     private Instrumentation() {}
     @Override
     public void addTransformer(ClassFileTransformer transformer, boolean canRetransform) {
-        InstrumentUtil.instrumentation.addTransformer(transformer, canRetransform);
+        InstrumentUtil.addTransformer(transformer, canRetransform);
     }
     @Override
     public void addTransformer(ClassFileTransformer transformer) {
-        InstrumentUtil.instrumentation.addTransformer(transformer);
+        InstrumentUtil.addTransformer(transformer, true);
     }
     @Override
     public boolean removeTransformer(ClassFileTransformer transformer) {
-        return InstrumentUtil.instrumentation.removeTransformer(transformer);
+        return InstrumentUtil.removeTransformer(transformer);
     }
     @Override
     public void retransformClasses(Class<?>... classes) throws UnmodifiableClassException {
@@ -58,7 +60,7 @@ public class Instrumentation implements java.lang.instrument.Instrumentation {
     }
     @Override
     public boolean isNativeMethodPrefixSupported() {
-        return InstrumentUtil.instrumentation.isNativeMethodPrefixSupported();
+        return true;
     }
     @Override
     public long getObjectSize(Object objectToSize) {
@@ -88,14 +90,68 @@ public class Instrumentation implements java.lang.instrument.Instrumentation {
     }
 
     public static final class SecureInstrumentation extends Instrumentation {
+        public static final SecureInstrumentation instance = Instrumentation.instance instanceof SecureInstrumentation ? (SecureInstrumentation) Instrumentation.instance : null;
         private SecureInstrumentation() {
             super();
+
+            JSONObject config = Util.config;
+            acAddTransformer = AccessController.of(config.getJSONObject("AddTransformer"));
+            acRetransformClass = AccessController.of(config.getJSONObject("AddTransformer"));
+            acRedefineClass = AccessController.of(config.getJSONObject("AddTransformer"));
+            acAppendBootstrapSearch = AccessController.of(config.getJSONObject("AddTransformer"));
+            acAppendSystemSearch = AccessController.of(config.getJSONObject("AddTransformer"));
+            acSetNativeMethodPrefix = AccessController.of(config.getJSONObject("AddTransformer"));
+            acRedefineModule = AccessController.of(config.getJSONObject("AddTransformer"));
         }
-        Class<?>[] globalClass;
-        Checker[] globalFunc;
-        @FunctionalInterface
-        public static interface Checker {
-            boolean check(Class<?> caller);
+        final AccessController acAddTransformer, acRetransformClass, acRedefineClass, acAppendBootstrapSearch, acAppendSystemSearch, acSetNativeMethodPrefix, acRedefineModule;
+
+        @Override
+        public void addTransformer(ClassFileTransformer transformer, boolean canRetransform) {
+            acAddTransformer.checkAccess(Reflection.getCallerClass());
+            super.addTransformer(transformer, canRetransform);
+        }
+
+        @Override
+        public void addTransformer(ClassFileTransformer transformer) {
+            acAddTransformer.checkAccess(Reflection.getCallerClass());
+            super.addTransformer(transformer);
+        }
+
+        @Override
+        public boolean removeTransformer(ClassFileTransformer transformer) {
+            return super.removeTransformer(transformer);
+        }
+
+        @Override
+        public void retransformClasses(Class<?>... classes) throws UnmodifiableClassException {
+            super.retransformClasses(classes);
+        }
+
+        @Override
+        public void redefineClasses(ClassDefinition... definitions) throws ClassNotFoundException, UnmodifiableClassException, SecurityException {
+            super.redefineClasses(definitions);
+        }
+
+        @Override
+        public void appendToBootstrapClassLoaderSearch(JarFile jarfile) {
+            acAppendBootstrapSearch.checkAccess(Reflection.getCallerClass());
+            super.appendToBootstrapClassLoaderSearch(jarfile);
+        }
+
+        @Override
+        public void appendToSystemClassLoaderSearch(JarFile jarfile) {
+            acAppendBootstrapSearch
+            super.appendToSystemClassLoaderSearch(jarfile);
+        }
+
+        @Override
+        public void setNativeMethodPrefix(ClassFileTransformer transformer, String prefix) {
+            super.setNativeMethodPrefix(transformer, prefix);
+        }
+
+        @Override
+        public void redefineModule(Module module, Set<Module> extraReads, Map<String, Set<Module>> extraExports, Map<String, Set<Module>> extraOpens, Set<Class<?>> extraUses, Map<Class<?>, List<Class<?>>> extraProvides) {
+            super.redefineModule(module, extraReads, extraExports, extraOpens, extraUses, extraProvides);
         }
     }
 }

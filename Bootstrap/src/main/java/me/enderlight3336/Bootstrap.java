@@ -1,7 +1,5 @@
 package me.enderlight3336;
 
-import me.enderlight3336.wrapper.EnderWrapperMain;
-
 import java.io.IOException;
 import java.lang.instrument.Instrumentation;
 import java.lang.instrument.UnmodifiableClassException;
@@ -22,6 +20,6 @@ public final class Bootstrap {
         ModuleLayer layer = bootL.defineModulesWithOneLoader(bootL.configuration().resolve(finder, ModuleFinder.of(), Set.of("me.enderlight3336.wrapper")), Thread.currentThread().getContextClassLoader());
         Module wrapper = layer.findModule("me.enderlight3336.wrapper").get();
         inst.redefineModule(Object.class.getModule(), Set.of(), Map.of("jdk.internal.module", Set.of(wrapper)), Map.of(), Set.of(), Map.of());
-        wrapper.getClassLoader().loadClass("me.enderlight3336.wrapper.EnderWrapperMain").getMethod("premain0", Instrumentation.class).invoke(null, inst);
+        wrapper.getClassLoader().loadClass("me.enderlight3336.wrapper.EnderWrapperMain").getMethod("premain0", Instrumentation.class, String.class).invoke(null, inst, agentArg);
     }
 }

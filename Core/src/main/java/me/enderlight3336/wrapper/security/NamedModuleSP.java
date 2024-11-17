@@ -6,14 +6,13 @@ import enderwrapper.internal.log.LogUtil;
 import enderwrapper.internal.security.SecurityUtil;
 import me.enderlight3336.wrapper.log.Logger;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.instrument.ClassFileTransformer;
 import java.nio.charset.StandardCharsets;
 
 public interface NamedModuleSP extends SecurityProvider{
     @SuppressWarnings("unchecked")
-    static NamedModuleSP get(Module module) {
+    static NamedModuleSP of(Module module) {
         NamedModuleSP ret = SecurityUtil.MODULE_SP_MAP.get(module);
         if (ret == null) {
             try (InputStream stream = module.getResourceAsStream("enderwrapper.json")) {
@@ -55,12 +54,12 @@ public interface NamedModuleSP extends SecurityProvider{
         }
 
         @Override
-        public boolean canTransform(Class<? extends ClassFileTransformer> transformer, Class<?> registeror, String className) {
+        public boolean canTransform(Class<? extends ClassFileTransformer> transformer, String className) {
             return false;
         }
 
         @Override
-        public boolean canRedefineClass(Class<?> caller, Class<?> target) {
+        public boolean canRedefineClass(Class<? extends ClassFileTransformer> caller, Class<?> target) {
             return false;
         }
     }

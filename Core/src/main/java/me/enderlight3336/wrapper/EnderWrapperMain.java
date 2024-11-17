@@ -2,7 +2,7 @@ package me.enderlight3336.wrapper;
 
 import com.alibaba.fastjson2.JSON;
 import enderwrapper.internal.ExtensionManager;
-import enderwrapper.internal.InstrumentUtil;
+import enderwrapper.internal.instrument.InstrumentUtil;
 import enderwrapper.internal.loader.ExtLoader;
 import enderwrapper.internal.log.LogUtil;
 import enderwrapper.internal.console.Console;
@@ -39,7 +39,7 @@ public final class EnderWrapperMain {
         }
     }
     @SuppressWarnings("unused")
-    public static void premain0(Instrumentation instrumentation) throws Throwable {
+    public static void premain0(Instrumentation instrumentation, String agentArg) throws Throwable {
         Modules.addOpens(URL.class.getModule(),"java.net" , wrapperModule);
         Modules.addExports(System.class.getModule(), "jdk.internal.loader", wrapperModule);
         Modules.addExports(System.class.getModule(), "jdk.internal.reflect", wrapperModule);
@@ -50,6 +50,7 @@ public final class EnderWrapperMain {
             throw ex;
         }
         InstrumentUtil.instrumentation = instrumentation;
+        InstrumentUtil.init();
 
         LogUtil.MAIN.info("============EnderWrapper============");
         LogUtil.MAIN.info("Version:  " + version);
