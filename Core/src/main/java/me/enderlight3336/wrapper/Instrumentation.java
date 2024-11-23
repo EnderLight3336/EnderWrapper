@@ -140,7 +140,7 @@ public class Instrumentation implements java.lang.instrument.Instrumentation {
 
         @Override
         public void appendToSystemClassLoaderSearch(JarFile jarfile) {
-            acAppendBootstrapSearch
+            acAppendBootstrapSearch.checkAccess(Reflection.getCallerClass());
             super.appendToSystemClassLoaderSearch(jarfile);
         }
 

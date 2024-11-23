@@ -44,6 +44,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <compilerArgs>
+                        <arg>-h</arg>
+                        <arg>./src/main/native</arg>
                         <arg>--add-exports</arg>
                         <arg>java.base/jdk.internal.module=me.enderlight3336.wrapper</arg>
                         <arg>--add-exports</arg>
