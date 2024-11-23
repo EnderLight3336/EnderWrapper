@@ -28,7 +28,7 @@ public final class EnderWrapperMain {
     static final Module wrapperModule = EnderWrapperMain.class.getModule();
     static final File path = new File(
             new File(EnderWrapperMain.class.getProtectionDomain().getCodeSource().getLocation().getPath())
-                    .getParentFile(),
+                    .getParentFile().getParentFile(),
             ".internal");
     static final String version;
     static {
