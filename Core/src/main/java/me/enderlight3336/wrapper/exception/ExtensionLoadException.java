@@ -6,29 +6,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExtensionLoadException extends Exception {
-    public final UnresolvedExt causeExt;
+    public final UnresolvedExt source;
     public final List<UnresolvedExt> influenceList = new ArrayList<>();
-    public ExtensionLoadException(UnresolvedExt causeExt, String s) {
+    public ExtensionLoadException(UnresolvedExt source, String s) {
         super(s);
 
-        this.causeExt = causeExt;
+        this.source = source;
     }
 
-    public ExtensionLoadException(UnresolvedExt causeExt, String message, Throwable cause) {
+    public ExtensionLoadException(UnresolvedExt source, String message, Throwable cause) {
         super(message, cause);
-        this.causeExt = causeExt;
+        this.source = source;
     }
 
-    public ExtensionLoadException(UnresolvedExt causeExt, Throwable cause) {
+    public ExtensionLoadException(UnresolvedExt source, Throwable cause) {
         super(cause);
-        this.causeExt = causeExt;
+        this.source = source;
     }
 
     @Override
     public String getMessage() {
         if (influenceList.isEmpty()) {
-            return "cause=" + causeExt.name;
+            return "cause=" + source.name;
         }
-        return "cause='" + causeExt.name + "' influence=" + influenceList;
+        return "cause='" + source.name + "' influence=" + influenceList;
     }
 }

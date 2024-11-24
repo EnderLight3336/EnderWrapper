@@ -22,4 +22,7 @@ public final class Bootstrap {
         inst.redefineModule(Object.class.getModule(), Set.of(), Map.of("jdk.internal.module", Set.of(wrapper)), Map.of(), Set.of(), Map.of());
         wrapper.getClassLoader().loadClass("me.enderlight3336.wrapper.EnderWrapperMain").getMethod("premain0", Instrumentation.class, String.class).invoke(null, inst, agentArg);
     }
+    public static void main(String[] args) {
+        //todo: prepare runtime
+    }
 }

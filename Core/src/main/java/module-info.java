@@ -15,8 +15,5 @@ module me.enderlight3336.wrapper {
     exports me.enderlight3336.wrapper.log;
     exports me.enderlight3336.wrapper.security;
     exports me.enderlight3336.wrapper.transformer;
-    exports enderwrapper.internal.console;
-    exports enderwrapper.internal.extension;
-    exports enderwrapper.internal.log;
-    exports enderwrapper.internal.security;
+    exports me.enderlight3336.wrapper.util;
 }

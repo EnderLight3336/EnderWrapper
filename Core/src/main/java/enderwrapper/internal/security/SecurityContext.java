@@ -6,6 +6,4 @@ import it.unimi.dsi.fastutil.objects.Reference2ObjectOpenHashMap;
 import me.enderlight3336.wrapper.security.NamedModuleSP;
 
 public final class SecurityContext {
-    public static void load(JSONObject json) {}
-    public static void loadExtra(JSONObject json) {}
 }

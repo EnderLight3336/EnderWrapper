@@ -17,25 +17,25 @@ public class DefaultTransformer implements ClassFileTransformer {
     public byte[] transform(Module module, ClassLoader loader, String name, Class<?> clazz, ProtectionDomain domain, byte[] bytes) throws IllegalClassFormatException {
         if (!module.isNamed())
             LogUtil.MAIN.info("UNNAMED MODULE CALL!!!!!DEBUG");//todo: debug
-        byte[] b;
+        byte[] ret = bytes;
         if (!InstrumentUtil.transMap.isEmpty()) {
             InstrumentUtil.readLock1();
-            //todo
+            for (ClassFileTransformer transformer : InstrumentUtil.transMap.keySet()) {
+                byte[] b = transformer.transform(module, loader, name, clazz, domain, ret);
+                if (b != null)
+                    ret = b;
+            }
             InstrumentUtil.readUnlock1();
         }
         if (!InstrumentUtil.unretransMap.isEmpty()) {
             InstrumentUtil.readLock2();
-            //todo
+            for (ClassFileTransformer transformer : InstrumentUtil.unretransMap.keySet()) {
+                byte[] b = transformer.transform(module, loader, name, clazz, domain, bytes);
+                if (b != null)
+                    return b;
+            }
             InstrumentUtil.readUnlock2();
         }
-
-        for (ClassFileTransformer transformer1 : buffer) {
-            if (!module.isOpen(pkgName, transformer1.getClass().getModule()))
-                continue;
-            byte[] ret = transformer1.transform(module, loader, name, clazz, domain, b);
-            if (ret != null)
-                b = ret;
-        }
-        return b == bytes ? null : b;
+        return ret == bytes ? null : ret;
     }
 }

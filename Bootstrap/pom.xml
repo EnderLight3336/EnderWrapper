@@ -30,6 +30,7 @@
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
                         <manifestEntries>
+                            <Main-Class>me.enderlight3336.Bootstrap</Main-Class>
                             <Premain-Class>me.enderlight3336.Bootstrap</Premain-Class>
                             <Can-Redefine-Classes>true</Can-Redefine-Classes>
                             <Can-Retransform-Classes>true</Can-Retransform-Classes>

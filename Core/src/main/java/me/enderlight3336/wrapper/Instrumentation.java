@@ -4,7 +4,7 @@ import com.alibaba.fastjson2.JSONObject;
 import jdk.internal.reflect.Reflection;
 import enderwrapper.internal.instrument.InstrumentUtil;
 import enderwrapper.internal.Util;
-import me.enderlight3336.wrapper.security.AccessController;
+import me.enderlight3336.wrapper.security.AccessContainer;
 
 import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.ClassFileTransformer;
@@ -95,15 +95,15 @@ public class Instrumentation implements java.lang.instrument.Instrumentation {
             super();
 
             JSONObject config = Util.config;
-            acAddTransformer = AccessController.of(config.getJSONObject("AddTransformer"));
-            acRetransformClass = AccessController.of(config.getJSONObject("AddTransformer"));
-            acRedefineClass = AccessController.of(config.getJSONObject("AddTransformer"));
-            acAppendBootstrapSearch = AccessController.of(config.getJSONObject("AddTransformer"));
-            acAppendSystemSearch = AccessController.of(config.getJSONObject("AddTransformer"));
-            acSetNativeMethodPrefix = AccessController.of(config.getJSONObject("AddTransformer"));
-            acRedefineModule = AccessController.of(config.getJSONObject("AddTransformer"));
+            acAddTransformer = AccessContainer.of(config.getJSONObject("AddTransformer"));
+            acRetransformClass = AccessContainer.of(config.getJSONObject("AddTransformer"));
+            acRedefineClass = AccessContainer.of(config.getJSONObject("AddTransformer"));
+            acAppendBootstrapSearch = AccessContainer.of(config.getJSONObject("AddTransformer"));
+            acAppendSystemSearch = AccessContainer.of(config.getJSONObject("AddTransformer"));
+            acSetNativeMethodPrefix = AccessContainer.of(config.getJSONObject("AddTransformer"));
+            acRedefineModule = AccessContainer.of(config.getJSONObject("AddTransformer"));
         }
-        final AccessController acAddTransformer, acRetransformClass, acRedefineClass, acAppendBootstrapSearch, acAppendSystemSearch, acSetNativeMethodPrefix, acRedefineModule;
+        final AccessContainer acAddTransformer, acRetransformClass, acRedefineClass, acAppendBootstrapSearch, acAppendSystemSearch, acSetNativeMethodPrefix, acRedefineModule;
 
         @Override
         public void addTransformer(ClassFileTransformer transformer, boolean canRetransform) {

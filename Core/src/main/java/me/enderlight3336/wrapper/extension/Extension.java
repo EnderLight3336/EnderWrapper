@@ -18,7 +18,7 @@ public abstract class Extension {
         }
     }
     protected final Logger logger;
-    protected final String name;
+    public final String name;
     protected final ExtLoader loader;
     Extension(String name, ExtLoader loader) {
         this.name = name;
