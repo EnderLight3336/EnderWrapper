@@ -1,1 +1,17 @@
-{"image":"mcr.microsoft.com/devcontainers/universal:2", "features" : {"ghcr.io/devcontainers/features/java:1" : {"version": "17"}}}
+{
+	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"features": {
+		"ghcr.io/devcontainers/features/java:1": {
+			"version": "17"
+		}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-vscode.cpptools-extension-pack",
+				"vscjava.vscode-java-pack"
+			]
+		}
+	}
+}

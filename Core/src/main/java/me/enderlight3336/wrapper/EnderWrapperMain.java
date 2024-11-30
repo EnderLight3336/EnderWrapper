@@ -93,7 +93,10 @@ public final class EnderWrapperMain {
 
         ExtLoader.init(List.of());
         Console.setLoaded();
-        ModuleDescriptor descriptor = selfMod.getDescriptor();
+        ModuleDescriptor desc = selfMod.getDescriptor();
+        for (ModuleDescriptor.Exports exports : desc.exports()) {
+            if (exports.source().startsWith("enderwrapper.internal")) {}//TODO;undo
+        }
     }
     public static File getPath() {
         return PATH;
