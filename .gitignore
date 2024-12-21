@@ -39,6 +39,7 @@ build/
 
 /.run/
 /.idea/
+/.runtime/
 # Compiled class file
 *.class
 
